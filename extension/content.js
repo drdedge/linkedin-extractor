@@ -7,7 +7,7 @@
     }
 
     /* 2. First-time set-up ---------------------------------------------------- */
-    const DEBUG = true;
+    const DEBUG = false;
     const dbg = (...a) => DEBUG && console.log('[LPE]', ...a);
 
     chrome.storage.local.get({ autoSaveEnabled: true }, (s) => {

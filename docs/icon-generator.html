@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Extractor Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon-container {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #0077B5;
+            color: white;
+            font-weight: bold;
+            margin: 10px auto;
+            border-radius: 4px;
+        }
+
+        .icon-16 {
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+        }
+
+        .icon-48 {
+            width: 48px;
+            height: 48px;
+            font-size: 24px;
+        }
+
+        .icon-128 {
+            width: 128px;
+            height: 128px;
+            font-size: 64px;
+        }
+
+        /* Alternative design with extraction symbol */
+        .icon-alt {
+            background: white;
+            border: 3px solid #0077B5;
+            color: #0077B5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-alt::after {
+            content: "↓";
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            font-size: 0.6em;
+            background: #0077B5;
+            color: white;
+            width: 40%;
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px 0 0 0;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .instructions {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="instructions">
+        <h2>LinkedIn Profile Extractor Icons</h2>
+        <p>To create icons for your Chrome extension:</p>
+        <ol>
+            <li>Take screenshots of the icons below</li>
+            <li>Save them as:
+                <ul>
+                    <li><code>icon16.png</code> (16x16 pixels)</li>
+                    <li><code>icon48.png</code> (48x48 pixels)</li>
+                    <li><code>icon128.png</code> (128x128 pixels)</li>
+                </ul>
+            </li>
+            <li>Place them in the <code>extension/icons/</code> folder</li>
+        </ol>
+        <p>Or right-click each icon and "Save image as..." if your browser supports it.</p>
+    </div>
+
+    <div class="icon-container">
+        <h2>Design 1: Simple "LI" Text</h2>
+        <div class="icon icon-16">LI</div>
+        <p>16x16</p>
+
+        <div class="icon icon-48">LI</div>
+        <p>48x48</p>
+
+        <div class="icon icon-128">LI</div>
+        <p>128x128</p>
+    </div>
+
+    <div class="icon-container">
+        <h2>Design 2: With Extract Indicator</h2>
+        <div class="icon icon-alt icon-16">in</div>
+        <p>16x16</p>
+
+        <div class="icon icon-alt icon-48">in</div>
+        <p>48x48</p>
+
+        <div class="icon icon-alt icon-128">in</div>
+        <p>128x128</p>
+    </div>
+
+    <script>
+        // Optional: Allow downloading icons as data URLs
+        document.querySelectorAll('.icon').forEach((icon, index) => {
+            icon.style.cursor = 'pointer';
+            icon.title = 'Click to log data URL to console';
+
+            icon.addEventListener('click', function () {
+                // Create canvas
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const size = parseInt(this.classList[1].split('-')[1]);
+
+                canvas.width = size;
+                canvas.height = size;
+
+                // Draw background
+                if (this.classList.contains('icon-alt')) {
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, size, size);
+
+                    // Draw border
+                    ctx.strokeStyle = '#0077B5';
+                    ctx.lineWidth = Math.max(1, size * 0.06);
+                    ctx.strokeRect(ctx.lineWidth / 2, ctx.lineWidth / 2, size - ctx.lineWidth, size - ctx.lineWidth);
+
+                    // Draw text
+                    ctx.fillStyle = '#0077B5';
+                    ctx.font = `bold ${size * 0.5}px Arial`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('in', size / 2, size / 2);
+
+                    // Draw corner indicator
+                    const cornerSize = size * 0.4;
+                    ctx.fillStyle = '#0077B5';
+                    ctx.fillRect(size - cornerSize, size - cornerSize, cornerSize, cornerSize);
+                    ctx.fillStyle = 'white';
+                    ctx.font = `bold ${cornerSize * 0.6}px Arial`;
+                    ctx.fillText('↓', size - cornerSize / 2, size - cornerSize / 2);
+                } else {
+                    ctx.fillStyle = '#0077B5';
+                    ctx.fillRect(0, 0, size, size);
+
+                    ctx.fillStyle = 'white';
+                    ctx.font = `bold ${size * 0.5}px Arial`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('LI', size / 2, size / 2);
+                }
+
+                // Log data URL
+                console.log(`icon${size}.png data URL:`, canvas.toDataURL('image/png'));
+                alert(`Data URL for icon${size}.png logged to console!`);
+            });
+        });
+    </script>
+</body>
+
+</html>
