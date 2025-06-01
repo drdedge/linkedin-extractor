@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(python scripts/linkedin_profile_parser.py:*)",
+      "Bash(python3:*)",
+      "Bash(pip3 install:*)",
+      "Bash(mkdir:*)",
+      "Bash(grep:*)",
+      "Bash(python test:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": []
+  }
+}

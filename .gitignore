@@ -41,7 +41,8 @@ extension.zip
 Downloads/
 linkedin_profiles_*/
 salesforce_import_*/
-
+examples/*
+debugging/*
 # Logs
 *.log
 debug.log
